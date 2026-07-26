@@ -5,8 +5,15 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1785073417444,
-      "tag": "0000_cheerful_steel_serpent",
+      "when": 1785075085537,
+      "tag": "0000_lumpy_mysterio",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1785075601800,
+      "tag": "0001_tricky_stellaris",
       "breakpoints": true
     }
   ]
