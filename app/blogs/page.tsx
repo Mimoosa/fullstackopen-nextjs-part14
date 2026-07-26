@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getBlogs } from "../services/blogs";
 import { filterBlogs } from "../actions/blogs";
+import { forbidden } from "next/navigation";
 
 const Blogs = async ({
   searchParams,
@@ -8,14 +9,8 @@ const Blogs = async ({
   searchParams: Promise<{ filter?: string }>;
 }) => {
   const { filter } = await searchParams;
-  const allBlogs = await getBlogs();
+  const allBlogs = await getBlogs(filter);
   const sortedBlogs = [...allBlogs].sort((a, b) => b.likes - a.likes);
-
-  const blogs = filter
-    ? sortedBlogs.filter((blog) =>
-        blog.title.toLowerCase().includes(filter.toLowerCase()),
-      )
-    : sortedBlogs;
 
   return (
     <div>
@@ -28,7 +23,7 @@ const Blogs = async ({
         </form>
       </div>
       <ul>
-        {blogs.map((blog) => (
+        {sortedBlogs.map((blog) => (
           <li key={blog.id}>
             <Link href={`/blogs/${blog.id}`}>
               {blog.title} by {blog.author}
