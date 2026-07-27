@@ -4,13 +4,14 @@ CREATE TABLE "blogs" (
 	"author" text NOT NULL,
 	"url" text NOT NULL,
 	"likes" integer DEFAULT 0 NOT NULL,
-	"user_id" integer
+	"user_id" integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "users" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"username" text NOT NULL,
 	"name" text NOT NULL,
+	"password_hash" text DEFAULT '' NOT NULL,
 	CONSTRAINT "users_username_unique" UNIQUE("username")
 );
 --> statement-breakpoint

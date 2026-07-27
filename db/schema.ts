@@ -1,16 +1,11 @@
-import {
-  pgTable,
-  serial,
-  text,
-  integer,
-  uniqueIndex,
-} from "drizzle-orm/pg-core";
+import { pgTable, serial, text, integer } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
   name: text("name").notNull(),
+  passwordHash: text("password_hash").notNull().default(""),
 });
 
 export const blogs = pgTable("blogs", {
