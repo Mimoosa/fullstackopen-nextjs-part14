@@ -18,3 +18,9 @@ export const getUserByUsername = async (username: string) => {
     where: eq(users.username, username),
   });
 };
+
+export const getUserByToken = async (token: string) => {
+  return db.query.users.findFirst({
+    where: eq(users.token, token),
+  });
+};

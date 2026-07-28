@@ -5,6 +5,9 @@ import bcrypt from "bcryptjs";
 import { db } from "../../db";
 import { users } from "../../db/schema";
 import { getUserByUsername } from "../services/users";
+import { eq } from "drizzle-orm";
+import { auth } from "@/auth";
+import { revalidatePath } from "next/cache";
 
 export const registerUser = async (
   prevState: {
@@ -56,4 +59,31 @@ export const registerUser = async (
   await db.insert(users).values({ username, name, passwordHash });
 
   redirect("/login");
+};
+
+export const generateNewToken = async () => {
+  const newToken = crypto.randomUUID();
+  const session = await auth();
+  const username = session?.user?.email;
+  if (username) {
+    const user = await getUserByUsername(username);
+    if (user) {
+      await db
+        .update(users)
+        .set({ token: newToken })
+        .where(eq(users.username, username));
+
+      revalidatePath("/me");
+    }
+  }
+};
+
+export const getUserInfo = async () => {
+  const session = await auth();
+  const username = session?.user?.email;
+  if (username) {
+    return await getUserByUsername(username);
+  } else {
+    return null;
+  }
 };

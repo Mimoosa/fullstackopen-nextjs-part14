@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getBlogs } from "../services/blogs";
 import { filterBlogs } from "../actions/blogs";
-import { forbidden } from "next/navigation";
 
 const Blogs = async ({
   searchParams,
