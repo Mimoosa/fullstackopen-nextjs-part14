@@ -10,7 +10,7 @@
     "lint": "eslint",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "serve": "node server.mjs"
+    "serve": "NODE_ENV=test node server.mjs"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -35,7 +35,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "dotenv": "^17.4.2",
-    "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
