@@ -1,8 +1,9 @@
-name: End-to-End Tests
+name: Playwright Tests
 
 on:
   push:
-    branches: [main, master]
+    branches:
+      - main
   pull_request:
 
 jobs:
@@ -10,34 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 20.10.0
+          node-version: 20
 
       - name: Install dependencies
         run: npm ci
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps
 
-      - name: Set up environment file
+      - name: Start server
         run: |
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env.test
-          echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env.test
-          echo "NEXTAUTH_URL=http://127.0.0.1:3000" >> .env.test
-          echo "NODE_ENV=production" >> .env.test
-
-      - name: Use test env
-        run: cp .env.test .env
-
-      - name: Build Next.js (standalone)
-        run: npm run build
-
-      - name: Start Next.js server
-        run: |
-          node .next/standalone/server.js &
+          npm run dev &
           sleep 5
 
       - name: Run Playwright tests
