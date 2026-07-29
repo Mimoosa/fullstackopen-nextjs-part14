@@ -28,7 +28,7 @@ jobs:
       - run: npm ci
 
       - name: Install Playwright deps
-        run: npx playwright install --with-deps --only-shell --only-deps
+        run: npx playwright install --with-deps --only-shell
 
       - name: Build Next.js
         env:
