@@ -20,22 +20,10 @@ jobs:
         with:
           node-version: 20
 
-      - uses: actions/cache@v3
-        with:
-          path: ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright
-
       - run: npm ci
 
       - name: Install Playwright deps
         run: npx playwright install --with-deps --only-shell
-
-      - name: Build Next.js
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-          NEXTAUTH_URL: http://localhost:3000
-        run: npm run build
 
       - name: Run Playwright tests
         env:
