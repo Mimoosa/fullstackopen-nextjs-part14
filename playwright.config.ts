@@ -3,10 +3,10 @@ import { defineConfig } from "@playwright/test";
 export default defineConfig({
   webServer: {
     command: "npm start",
-    port: 3000,
-    reuseExistingServer: false,
+    url: "http://10.1.0.166:3000",
+    reuseExistingServer: true,
   },
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: "http://10.1.0.166:3000",
   },
 });
