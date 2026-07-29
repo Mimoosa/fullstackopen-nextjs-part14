@@ -61,7 +61,7 @@ jobs:
           NODE_ENV: production
 
       - name: Start Next.js server
-        run: npm run dev -- --turbo false --hostname localhost &
+        run: npm run dev &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
