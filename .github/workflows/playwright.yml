@@ -12,11 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
@@ -39,13 +37,18 @@ jobs:
       - name: Run database migrations
         run: npx drizzle-kit push --force
 
-      - name: Build Next.js (production)
+      - name: Build Next.js
         run: npm run build
 
+      - name: Start Next.js server
+        run: |
+          nohup npm run start > server.log 2>&1 &
+          sleep 5
+
       - name: Run Playwright tests
-        run: npx playwright test
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           NEXTAUTH_URL: http://127.0.0.1:3000
           NODE_ENV: test
+        run: npx playwright test
