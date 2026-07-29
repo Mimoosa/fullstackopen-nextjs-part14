@@ -61,12 +61,13 @@ jobs:
           NODE_ENV: production
 
       - name: Start Next.js server
-        run: npm start -- --turbo false --hostname localhost &
+        run: npm start -- --hostname localhost &
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}
           NODE_ENV: production
+          NEXT_RUNTIME: nodejs
 
       - name: Wait for Next.js to be ready
         run: npx wait-on tcp:3000
