@@ -1,6 +1,6 @@
 export default {
   webServer: {
-    command: "npm run dev",
+    command: "npm run start",
     url: "http://localhost:3000",
     reuseExistingServer: false,
   },
