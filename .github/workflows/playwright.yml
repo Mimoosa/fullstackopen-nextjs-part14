@@ -17,6 +17,11 @@ jobs:
         with:
           node-version: 20
 
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright
+
       - run: npm ci
 
       - name: Build Next.js
