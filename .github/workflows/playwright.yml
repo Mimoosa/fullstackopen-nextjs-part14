@@ -28,6 +28,7 @@ jobs:
         run: |
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" > .env.test
           echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env.test
+          echo "NEXTAUTH_URL=http://10.1.0.166:3000" >> .env.test
           echo "NODE_ENV=test" >> .env.test
 
       - name: Use test env
@@ -39,19 +40,10 @@ jobs:
       - name: Build Next.js
         run: npm run build
 
-      - name: Detect internal host
-        id: detect
-        run: |
-          npm start &
-          sleep 5
-          HOST=$(ss -tln | grep ":3000" | awk '{print $4}' | sed 's/.*://')
-          echo "HOST=$HOST" >> $GITHUB_OUTPUT
-
       - name: Run Playwright tests
-        run: |
-          HOST=${{ steps.detect.outputs.HOST }}
-          NEXTAUTH_URL="http://$HOST:3000" \
-          DATABASE_URL=${{ secrets.DATABASE_URL }} \
-          NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }} \
-          NODE_ENV=test \
-          npx playwright test
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXTAUTH_URL: http://10.1.0.166:3000
+          NODE_ENV: test
+        run: npx playwright test
