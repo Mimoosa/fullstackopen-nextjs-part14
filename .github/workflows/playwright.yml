@@ -27,14 +27,15 @@ jobs:
 
       - run: npm ci
 
+      - name: Install Playwright deps
+        run: npx playwright install --with-deps
+
       - name: Build Next.js
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
           NEXTAUTH_URL: http://localhost:3000
         run: npm run build
-
-      - run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         env:
