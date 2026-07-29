@@ -31,10 +31,12 @@ jobs:
           echo "NEXTAUTH_URL=http://127.0.0.1:3000" >> .env.test
           echo "NODE_ENV=test" >> .env.test
 
-      - name: Run database migrations
+      - name: Run Playwright tests
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: npx drizzle-kit push
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXTAUTH_URL: http://127.0.0.1:3000
+        run: npx playwright test
 
       - name: Run Playwright tests
         env:
