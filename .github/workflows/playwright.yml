@@ -41,9 +41,9 @@ jobs:
         run: npm run build
 
       - name: Run Playwright tests
-        run: npx playwright test
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
-          NEXTAUTH_URL: http://localhost:3000
-          NODE_ENV: test
+        run: |
+          export DATABASE_URL=${{ secrets.DATABASE_URL }}
+          export NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}
+          export NEXTAUTH_URL=http://localhost:3000
+          export NODE_ENV=test
+          npx playwright test
