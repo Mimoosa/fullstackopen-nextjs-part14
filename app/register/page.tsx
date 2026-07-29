@@ -57,7 +57,7 @@ export default function RegisterPage() {
 
         {/* Password confirmation */}
         <div className="grid grid-cols-[150px_1fr] items-center gap-3">
-          <label className="font-medium">Password confirmation</label>
+          <label className="font-medium">Confirm Password</label>
           <input
             type="password"
             name="passwordConfirm"

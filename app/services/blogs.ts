@@ -1,6 +1,6 @@
-import { eq, ilike, sql } from "drizzle-orm";
+import { eq, ilike } from "drizzle-orm";
 import { db } from "../../db";
-import { blogs, users } from "../../db/schema";
+import { blogs } from "../../db/schema";
 import { getCurrentUser } from "./session";
 
 export const getBlogs = async (filter?: string) => {
@@ -34,4 +34,8 @@ export const addLikes = async (id: number) => {
       .set({ likes: blog.likes + 1 })
       .where(eq(blogs.id, id));
   }
+};
+
+export const resetBlogs = async () => {
+  await db.delete(blogs);
 };
