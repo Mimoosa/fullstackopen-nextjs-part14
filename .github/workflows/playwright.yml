@@ -35,7 +35,7 @@ jobs:
         run: cp .env.test .env
 
       - name: Run database migrations
-        run: npx drizzle-kit push
+        run: npx drizzle-kit push --force
 
       - name: Build Next.js
         run: npm run build
