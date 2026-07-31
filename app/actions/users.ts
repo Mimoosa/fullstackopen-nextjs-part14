@@ -62,28 +62,22 @@ export const registerUser = async (
 };
 
 export const generateNewToken = async () => {
-  const newToken = crypto.randomUUID();
   const session = await auth();
+  if (!session?.user?.email) return;
+  const newToken = crypto.randomUUID();
   const username = session?.user?.email;
-  if (username) {
-    const user = await getUserByUsername(username);
-    if (user) {
-      await db
-        .update(users)
-        .set({ token: newToken })
-        .where(eq(users.username, username));
 
-      revalidatePath("/me");
-    }
-  }
+  const user = await getUserByUsername(username);
+  if (!user) return;
+
+  await db.update(users).set({ token: newToken }).where(eq(users.id, user.id));
+  revalidatePath("/me");
 };
 
 export const getUserInfo = async () => {
   const session = await auth();
   const username = session?.user?.email;
-  if (username) {
-    return await getUserByUsername(username);
-  } else {
-    return null;
-  }
+  if (!username) return null;
+  const user = await getUserByUsername(username);
+  return user;
 };

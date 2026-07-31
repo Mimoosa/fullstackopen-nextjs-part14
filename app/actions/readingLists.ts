@@ -12,8 +12,8 @@ export const addMyReadingList = async (formData: FormData) => {
     redirect("/login");
   }
 
-  const id = Number(formData.get("id"));
-  await addReadingList(id);
+  const blogId = Number(formData.get("blogId"));
+  await addReadingList(blogId);
   revalidatePath("/me");
 };
 

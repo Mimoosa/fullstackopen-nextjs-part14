@@ -18,6 +18,7 @@ const Blogs = async ({
         <p>enter a searching keyword</p>
         <form action={filterBlogs}>
           <input
+            data-testid="filter-input"
             type="text"
             name="keyword"
             required
@@ -25,13 +26,14 @@ const Blogs = async ({
           />
           <button
             type="submit"
+            data-testid="search-button"
             className="border rounded p-3 hover:bg-gray-700"
           >
             submit
           </button>
         </form>
       </div>
-      <ul>
+      <ul data-testid="blogs-list">
         {sortedBlogs.map((blog) => (
           <li
             key={blog.id}
@@ -43,6 +45,7 @@ const Blogs = async ({
             >
               {blog.title} by {blog.author}
             </Link>
+            <p className="text-sm text-gray-300">{blog.likes} likes</p>
           </li>
         ))}
       </ul>

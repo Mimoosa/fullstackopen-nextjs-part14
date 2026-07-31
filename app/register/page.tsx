@@ -17,10 +17,12 @@ export default function RegisterPage() {
       <h2 className="font-bold text-3xl mb-5">Register</h2>
 
       <form action={formAction} className="space-y-6">
-        {/* Username */}
         <div className="grid grid-cols-[150px_1fr] items-center gap-3">
-          <label className="font-medium">Username</label>
+          <label htmlFor="username" className="font-medium">
+            Username
+          </label>
           <input
+            id="username"
             type="text"
             name="username"
             defaultValue={state.values?.username}
@@ -28,13 +30,17 @@ export default function RegisterPage() {
           />
         </div>
         {state.errors?.username && (
-          <p className="text-red-500">{state.errors.username}</p>
+          <p data-testid="username-error" className="text-red-500">
+            {state.errors.username}
+          </p>
         )}
 
-        {/* Name */}
         <div className="grid grid-cols-[150px_1fr] items-center gap-3">
-          <label className="font-medium">Name</label>
+          <label htmlFor="name" className="font-medium">
+            Name
+          </label>
           <input
+            id="name"
             type="text"
             name="name"
             defaultValue={state.values?.name}
@@ -42,10 +48,12 @@ export default function RegisterPage() {
           />
         </div>
 
-        {/* Password */}
         <div className="grid grid-cols-[150px_1fr] items-center gap-3">
-          <label className="font-medium">Password</label>
+          <label htmlFor="password" className="font-medium">
+            Password
+          </label>
           <input
+            id="password"
             type="password"
             name="password"
             className="border rounded p-3"
@@ -55,23 +63,28 @@ export default function RegisterPage() {
           <p className="text-red-500">{state.errors.password}</p>
         )}
 
-        {/* Password confirmation */}
         <div className="grid grid-cols-[150px_1fr] items-center gap-3">
-          <label className="font-medium">Confirm Password</label>
+          <label htmlFor="passwordConfirm" className="font-medium">
+            Confirm Password
+          </label>
           <input
+            id="passwordConfirm"
             type="password"
             name="passwordConfirm"
             className="border rounded p-3"
           />
         </div>
         {state.errors?.passwordConfirm && (
-          <p className="text-red-500">{state.errors.passwordConfirm}</p>
+          <p data-testid="passwordConfirm-error" className="text-red-500">
+            {state.errors.passwordConfirm}
+          </p>
         )}
 
         {/* Submit button */}
         <div className="flex justify-center pt-4">
           <button
             type="submit"
+            data-testid="register-button"
             className="border rounded py-3 px-8 hover:bg-gray-700"
           >
             Register

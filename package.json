@@ -9,8 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "serve": "NODE_ENV=test node server.mjs"
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",

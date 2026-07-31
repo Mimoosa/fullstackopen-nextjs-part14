@@ -374,10 +374,14 @@ test.describe("Blog Application", () => {
       await page.goto("/blogs");
       await page.getByRole("link", { name: "Test Blog" }).click();
       await page.waitForSelector('[data-testid="add-to-reading-list-button"]');
-      await page.getByTestId("add-to-reading-list-button").click();
+      //await page.getByTestId("add-to-reading-list-button").click();
 
       // Wait for server action to complete
-      await page.waitForTimeout(500);
+      //await page.waitForTimeout(500);
+      await Promise.all([
+        page.waitForResponse((res) => res.status() === 200),
+        page.getByTestId("add-to-reading-list-button").click(),
+      ]);
 
       // Go to me page and mark as read
       await page.goto("/me");
@@ -470,7 +474,11 @@ test.describe("Blog Application", () => {
       await page.getByTestId("generate-token-button").click();
 
       // Wait for token to potentially change
-      await page.waitForTimeout(500);
+      //await page.waitForTimeout(500);
+      await page.waitForFunction((first) => {
+        const el = document.querySelector('[data-testid="api-token"]');
+        return el && el.textContent && el.textContent !== first;
+      }, firstToken);
       const secondToken = await page.getByTestId("api-token").textContent();
 
       // Tokens should be different

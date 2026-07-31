@@ -3,10 +3,12 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useNotification } from "../components/NotificationContext";
 
 export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState("");
+  const { showNotification } = useNotification();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,8 +23,9 @@ export default function LoginPage() {
     if (result?.error) {
       setError("Invalid username or password");
     } else {
+      showNotification("login successful");
       router.push("/");
-      router.refresh();
+      //router.refresh();
     }
   };
 
@@ -30,12 +33,19 @@ export default function LoginPage() {
     <div className="max-w-2xl mx-auto p-6">
       <h2 className="font-bold text-3xl mb-5">Login</h2>
 
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+      {error && (
+        <p data-testid="error-message" className="text-red-500 mb-4">
+          {error}
+        </p>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-[150px_1fr] items-center gap-3">
-          <label className="font-medium">Username</label>
+          <label htmlFor="username" className="font-medium">
+            Username
+          </label>
           <input
+            id="username"
             type="text"
             name="username"
             required
@@ -44,8 +54,11 @@ export default function LoginPage() {
         </div>
 
         <div className="grid grid-cols-[150px_1fr] items-center gap-3">
-          <label className="font-medium">Password</label>
+          <label htmlFor="password" className="font-medium">
+            Password
+          </label>
           <input
+            id="password"
             type="password"
             name="password"
             required
@@ -56,6 +69,7 @@ export default function LoginPage() {
         <div className="flex justify-center pt-4">
           <button
             type="submit"
+            data-testid="login-button"
             className="border rounded py-3 px-8 hover:bg-gray-700"
           >
             Login

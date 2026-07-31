@@ -29,8 +29,11 @@ const NewBlog = () => {
       <h2 className="font-bold text-3xl mb-5">Create a new blog</h2>
       <form action={formAction}>
         <div className="grid grid-cols-2 items-center mb-5">
-          <label className="font-medium">title</label>
+          <label htmlFor="title" className="font-medium">
+            Title
+          </label>
           <input
+            id="title"
             type="text"
             name="title"
             defaultValue={state.values.title}
@@ -42,8 +45,11 @@ const NewBlog = () => {
         )}
 
         <div className="grid grid-cols-2 items-center mb-5">
-          <label className="font-medium">author</label>
+          <label htmlFor="author" className="font-medium">
+            Author
+          </label>
           <input
+            id="author"
             type="text"
             name="author"
             defaultValue={state.values.author}
@@ -55,8 +61,11 @@ const NewBlog = () => {
         )}
 
         <div className="grid grid-cols-2 items-center mb-5">
-          <label className="font-medium">url</label>
+          <label htmlFor="url" className="font-medium">
+            URL
+          </label>
           <input
+            id="url"
             type="text"
             name="url"
             defaultValue={state.values.url}
@@ -68,6 +77,7 @@ const NewBlog = () => {
         <div className="flex justify-center">
           <button
             type="submit"
+            data-testid="create-blog-button"
             className="border rounded py-3 px-8 hover:bg-gray-700"
           >
             Create
